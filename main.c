@@ -53,6 +53,7 @@ int main()
 
         case 'D':
             healthDatabase(); 
+            // Health database placeholder
             break;
 
         case 'E':
@@ -278,5 +279,28 @@ void HealthDatabase () {
         printf("Wrong input, go back please\n");
 
     }
-    
+}
+
+// Growth Tracker function
+void growthTracker(int ageInMonths) {
+    printf("\n----- Growth Tracker -----\n");
+
+    if (ageInMonths <= 6) {
+        printf("At this age, typical milestones include:\n");
+        printf("- Lifts head and begins to push up when lying on tummy.\n");
+        printf("- Starts to smile at people.\n");
+        printf("- Coos or makes gurgling sounds.\n");
+    } else if (ageInMonths <= 12) {
+        printf("At this age, typical milestones include:\n");
+        printf("- Crawling and pulling to stand.\n");
+        printf("- Says 'mama' or 'dada' and waves goodbye.\n");
+        printf("- Enjoys peek-a-boo and other interactive games.\n");
+    } else if (ageInMonths <= 24) {
+        printf("At this age, typical milestones include:\n");
+        printf("- Begins to run and climb.\n");
+        printf("- Says several words and can combine two-word phrases.\n");
+        printf("- Points to things when named.\n");
+    } else {
+        printf("For children above 24 months, consult specific developmental guidelines.\n");
+    }
 }
