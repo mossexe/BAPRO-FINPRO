@@ -3,9 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-int n, p,options;
-
-// this is for the  maximum number of diseases that can be stored
 #define MAX_DISEASES 100 
 
 typedef struct {
@@ -18,6 +15,98 @@ typedef struct {
 Disease diseaseDatabase[MAX_DISEASES];
 int diseaseCount = 0;
 
+void vaccineTracker(int ageInMonths);
+int ageCalculator();
+void growthTracker(int ageInMonths);
+void healthDatabase();
+
+int n, p,options;
+
+int main()
+{
+    int ageInMonths = ageCalculator(); // Calculate child's age in months
+    char menu;
+    do
+    {
+        printf("\nMenu Options:\n");
+        printf("A. Growth Tracker\n");
+        printf("B. Vaccine Tracker\n");
+        printf("C. Sleep Tracker\n");
+        printf("D. Health Database\n");
+        printf("E. Exit\n");
+        printf("Enter your choice: ");
+        scanf(" %c", &menu);
+
+        switch (menu)
+        {
+        case 'A':
+            growthTracker(ageInMonths);
+            break;
+
+        case 'B':
+            vaccineTracker(ageInMonths);
+            break;
+
+        case 'C':
+            // Sleep tracker placeholder
+            break;
+
+        case 'D':
+            healthDatabase(); 
+            break;
+
+        case 'E':
+            printf("Exiting program. Thank you!\n");
+            break;
+
+        default:
+            printf("Invalid Input! Try Again.\n");
+        }
+    } while (menu != 'E');
+
+    return 0;
+}
+
+// Function to calculate child's age in months
+int ageCalculator()
+{
+    int dates[2][3]; // Array to store birthdate [0][...] and current date [1][...]
+
+    // Get child's birthdate
+    printf("Enter child's birthdate (YYYY MM DD): ");
+    scanf("%d %d %d", &dates[0][0], &dates[0][1], &dates[0][2]);
+
+    // Get current date
+    time_t t = time(NULL);
+    struct tm currentDate = *localtime(&t);
+
+    dates[1][0] = currentDate.tm_year + 1900; // Current Year
+    dates[1][1] = currentDate.tm_mon + 1;     // Current Month
+    dates[1][2] = currentDate.tm_mday;        // Current Day
+
+    // Calculate age in months
+    int ageInYears = dates[1][0] - dates[0][0];
+    int ageInMonths = (dates[1][1] - dates[0][1]) + (ageInYears * 12);
+    if (dates[1][1] < dates[0][1] || (dates[1][1] == dates[0][1] && dates[1][2] < dates[0][2]))
+    {
+        ageInMonths -= 1; // Adjust if birthdate hasn't occurred yet this month
+    }
+    return ageInMonths;
+}
+
+// Function to calculate remaining months for a vaccine dosage
+int vaccineCalculator(int interval, int ageInMonths) {
+    int nextDose = interval - ageInMonths; // Remaining months until the dosage
+    return (nextDose > 0) ? nextDose : 0; // If overdue, set remaining to 0
+}
+
+// Vaccine Tracker function
+void vaccineTracker(int ageInMonths) {
+    char VaccineMenu;
+    int interval = 0;
+    int i;
+    int nextDose;
+}
 void AddNewDisease() {
     if (diseaseCount >= MAX_DISEASES) {
         printf("\nThe disease database is full! Cannot add more diseases.\n");
@@ -190,22 +279,4 @@ void HealthDatabase () {
 
     }
     
-}
-int main() {
-    int choice;
-    while(1) {
-        printf("\nWelcome to the Baby Health Advisor!\n");
-        printf("Choose an option:\n");
-        printf("1. Learn about Baby Health\n");
-        printf("2. Add New Disease\n");
-        printf("3. View Diseases\n");
-        printf("4. Get Emergency Contact\n");
-        printf("5. Exit\n");
-        printf("Enter your choice: ");
-        
-        HealthDatabase();
-        
-        
-    }
-    return 0;
 }
