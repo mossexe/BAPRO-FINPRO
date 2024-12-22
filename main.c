@@ -46,7 +46,7 @@ int main() {
             break;
 
         case 'B':
-            printf("Vaccine Tracker is under development.\n");
+            vaccineTracker(ageInMonths); //call the vaccine tracker
             break;
 
         case 'C':
